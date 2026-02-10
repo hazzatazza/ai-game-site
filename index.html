@@ -7,156 +7,63 @@
     <style>
         :root {
             --primary: #2563eb;
-            --dark: #1e293b;
-            --light: #f8fafc;
+            --dark: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             background-color: var(--dark);
-            color: var(--light);
+            color: var(--text);
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         header {
-            padding: 2rem;
+            padding: 3rem 1rem;
             text-align: center;
         }
+
+        h1 { margin: 0; font-size: 2.5rem; letter-spacing: -1px; }
+        p { opacity: 0.7; margin-top: 0.5rem; }
 
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
             width: 90%;
-            max-width: 1200px;
-            padding: 20px;
+            max-width: 1100px;
+            padding-bottom: 50px;
         }
 
         .game-card {
-            background: #334155;
-            border-radius: 12px;
-            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px 20px;
             text-align: center;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
             cursor: pointer;
-            border: 2px solid transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
 
         .game-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            background: #2d3a4f;
             border-color: var(--primary);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
         }
 
-        .game-card h3 {
-            margin: 10px 0;
-            text-transform: capitalize;
-        }
+        .game-card h3 { margin: 0; font-size: 1.1rem; }
 
         /* Fullscreen Overlay */
-        #game-container {
+        #game-overlay {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: black;
-            z-index: 1000;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .controls {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            gap: 10px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button.close { background: #ef4444; }
-    </style>
-</head>
-<body>
-
-<header>
-    <h1>Algebra Practise</h1>
-    <p>Select a "lesson" to begin</p>
-</header>
-
-<div class="game-grid" id="grid">
-    </div>
-
-<div id="game-container">
-    <div class="controls">
-        <button onclick="toggleFullScreen()">Fullscreen</button>
-        <button class="close" onclick="closeGame()">Close</button>
-    </div>
-    <iframe id="game-iframe" src=""></iframe>
-</div>
-
-<script>
-    // List of your attached files
-    const games = [
-        { name: "Flappy Bird", file: "flap bird.html" },
-        { name: "Escape Road", file: "clescaperoad.html" },
-        { name: "Poly Old", file: "clpolyold.html" },
-        { name: "Slice It All", file: "Slice it All.html" },
-        { name: "GD Lite", file: "clgdlite.html" },
-        { name: "Snow Rider", file: "clsnowriderrrr.html" },
-        { name: "Short Life", file: "clshortlife.html" },
-        { name: "Tunnel Rush", file: "cltunnelrushbetter.html" },
-        { name: "Wheelie Bike", file: "clwheeliebike.html" }
-    ];
-
-    const grid = document.getElementById('grid');
-    const container = document.getElementById('game-container');
-    const iframe = document.getElementById('game-iframe');
-
-    // Create the buttons
-    games.forEach(game => {
-        const card = document.createElement('div');
-        card.className = 'game-card';
-        card.innerHTML = `<h3>${game.name}</h3>`;
-        card.onclick = () => {
-            iframe.src = game.file;
-            container.style.display = 'block';
-        };
-        grid.appendChild(card);
-    });
-
-    function closeGame() {
-        container.style.display = 'none';
-        iframe.src = '';
-    }
-
-    function toggleFullScreen() {
-        if (!document.fullscreenElement) {
-            container.requestFullscreen().catch(err => {
-                alert(`Error attempting to enable full-screen mode: ${err.message}`);
-            });
-        } else {
-            document.exitFullscreen();
-        }
-    }
-</script>
-
-</body>
-</html>
+            width: 10
