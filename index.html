@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra Practise</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .game-card {
+            background: #334155;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .game-card h3 {
+            margin: 10px 0;
+            text-transform: capitalize;
+        }
+
+        /* Fullscreen Overlay */
+        #game-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 1000;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button.close { background: #ef4444; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Algebra Practise</h1>
+    <p>Select a "lesson" to begin</p>
+</header>
+
+<div class="game-grid" id="grid">
+    </div>
+
+<div id="game-container">
+    <div class="controls">
+        <button onclick="toggleFullScreen()">Fullscreen</button>
+        <button class="close" onclick="closeGame()">Close</button>
+    </div>
+    <iframe id="game-iframe" src=""></iframe>
+</div>
+
+<script>
+    // List of your attached files
+    const games = [
+        { name: "Flappy Bird", file: "flap bird.html" },
+        { name: "Escape Road", file: "clescaperoad.html" },
+        { name: "Poly Old", file: "clpolyold.html" },
+        { name: "Slice It All", file: "Slice it All.html" },
+        { name: "GD Lite", file: "clgdlite.html" },
+        { name: "Snow Rider", file: "clsnowriderrrr.html" },
+        { name: "Short Life", file: "clshortlife.html" },
+        { name: "Tunnel Rush", file: "cltunnelrushbetter.html" },
+        { name: "Wheelie Bike", file: "clwheeliebike.html" }
+    ];
+
+    const grid = document.getElementById('grid');
+    const container = document.getElementById('game-container');
+    const iframe = document.getElementById('game-iframe');
+
+    // Create the buttons
+    games.forEach(game => {
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.innerHTML = `<h3>${game.name}</h3>`;
+        card.onclick = () => {
+            iframe.src = game.file;
+            container.style.display = 'block';
+        };
+        grid.appendChild(card);
+    });
+
+    function closeGame() {
+        container.style.display = 'none';
+        iframe.src = '';
+    }
+
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            container.requestFullscreen().catch(err => {
+                alert(`Error attempting to enable full-screen mode: ${err.message}`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    }
+</script>
+
+</body>
+</html>
